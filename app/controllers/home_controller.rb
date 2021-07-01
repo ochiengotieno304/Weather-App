@@ -23,10 +23,7 @@ class HomeController < ApplicationController
           end
 
           if item == 'icon'
-            icon_id = "#{content}"
-            icon_url = 'http://openweathermap.org/img/wn/'+ icon_id +'@2x.png'
-            @uri_1 = URI(icon_url)
-            @icon_response = Net::HTTP.get(@uri_1)
+            @icon_id = "#{content}"
           end
         end
         

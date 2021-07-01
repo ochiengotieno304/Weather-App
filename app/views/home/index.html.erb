@@ -5,12 +5,11 @@
       <% @output %>
       <%= @content %> <br>
       <%= @humidity %> <br>
-      <%= @wind_speed %>
+      <%= @wind_speed %> <br>
+      <%= @temperature %>
 
-      <img src="@icon_response">
-      <%= image_tag '' %>
+      <img src="http://openweathermap.org/img/wn/<%= @icon_id %>.png">
 
-      <i class="fas fa-cloud-showers-heavy"></i>
     </p>
     <button onclick="location.reload()" class="btn btn-primary btn-lg" type="button" >Refresh</button>
   </div>
