@@ -5,5 +5,5 @@ application up and running.
 
 Things you may want to cover:
 
-* Still in production stage, has a few bugs
+* Still in development stage, has a few bugs
 * Improvement of interface in progress
