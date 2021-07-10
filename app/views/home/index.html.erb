@@ -2,13 +2,12 @@
   <div class="container-fluid py-5">
     <h1 class="display-5 fw-bold"><%= @name %></h1>
     <p class="col-md-8 fs-4">
-      <% @output %>
-      <%= @content %> <br>
-      <%= @humidity %> <br>
-      <%= @wind_speed %> <br>
-      <%= @temperature %>
 
-      <img src="http://openweathermap.org/img/wn/<%= @icon_id %>.png">
+      <%= @content %> 
+      <img src="http://openweathermap.org/img/wn/<%= @icon_id %>.png" alt="state_icon"> <br>
+      <%= @temperature %> <br>
+      <%= @humidity %> % <br>
+      <%= @wind_speed %> m/s <br>
 
     </p>
     <button onclick="location.reload()" class="btn btn-primary btn-lg" type="button" >Refresh</button>
