@@ -8,17 +8,17 @@ class HomeController < ApplicationController
 
       if @data
         # Accuweather locations api endpoint
-        # @accu_url = 'http://dataservice.accuweather.com/locations/v1/cities/search?q='+ @data +'&apikey=oKWgqkWj5XA0dvx22bTA1y6l4inM5la3'
-        # @accu_uri = URI(@accu_url)                 # convert @accu_url variable to a URI
-        # @accu_response = Net::HTTP.get(@accu_uri)  # pass the uri to the response
-        # @accu_output = JSON.parse(@accu_response)  # parse the JSON
-        #
-        # # Extracting accuweather latitude and longitude values
-        # lat = @accu_output[0]['GeoPosition']['Latitude'].to_s
-        # lon = @accu_output[0]['GeoPosition']['Longitude'].to_s
+        @accu_url = 'http://dataservice.accuweather.com/locations/v1/cities/search?q='+ @data +'&apikey=oKWgqkWj5XA0dvx22bTA1y6l4inM5la3'
+        @accu_uri = URI(@accu_url)                 # convert @accu_url variable to a URI
+        @accu_response = Net::HTTP.get(@accu_uri)  # pass the uri to the response
+        @accu_output = JSON.parse(@accu_response)  # parse the JSON
 
-        lat = '-1.27'
-        lon = '36.804'
+        # Extracting accuweather latitude and longitude values
+        lat = @accu_output[0]['GeoPosition']['Latitude'].to_s
+        lon = @accu_output[0]['GeoPosition']['Longitude'].to_s
+
+        # lat = '-1.27'
+        # lon = '36.804'
         # Openweather forecast api endpoint
         # https://api.openweathermap.org/data/2.5/onecall?lat=-1.27&lon=36.804&units=metric&exclude=minutely&appid=1cc879771ffb654e030d0801eb0df537
         @open_url = 'https://api.openweathermap.org/data/2.5/onecall?lat='+ lat +'&lon='+ lon +'&units=metric&exclude=minutely&appid=1cc879771ffb654e030d0801eb0df537'
@@ -125,13 +125,13 @@ class HomeController < ApplicationController
         # Extract daily weather from openweather
         @daily_weather = @open_output['daily'].each {|value|}
 
-        # tomorrows forecast
+        # today forecast
         @daily_weather[0].each do |key, value|
             case key
             when 'dt'
                 @time_1 = value.to_i
             when 'humidity'
-                @humidity_1 = value
+                @humidity_1 = value.to_s + '%'
             when 'weather'
                 value[0].each do |attribute, content|
                     case attribute
@@ -144,13 +144,13 @@ class HomeController < ApplicationController
             end
         end
 
-        # second day forecast
+        # tomorrow day forecast
         @daily_weather[1].each do |key, value|
             case key
             when 'dt'
                 @time_2 = value.to_i
             when 'humidity'
-                @humidity_2 = value
+                @humidity_2 = value.to_s + '%'
             when 'weather'
                 value[0].each do |attribute, content|
                     case attribute
@@ -163,13 +163,13 @@ class HomeController < ApplicationController
             end
         end
 
-        # third day forecast
+        # second day forecast
         @daily_weather[2].each do |key, value|
             case key
             when 'dt'
                 @time_3 = value.to_i
             when 'humidity'
-                @humidity_3 = value
+                @humidity_3 = value.to_s + '%'
             when 'weather'
                 value[0].each do |attribute, content|
                     case attribute
@@ -182,30 +182,10 @@ class HomeController < ApplicationController
             end
         end
 
-        # fourth day focast
-        @daily_weather[3].each do |key, value|
-            case key
-            when 'dt'
-                @time_4 = value.to_i
-            when 'humidity'
-                @humidity_4 = value
-            when 'weather'
-                value[0].each do |attribute, content|
-                    case attribute
-                        when 'description'
-                            @description_4 = content
-                        when 'icon'
-                            @icon_4 = content
-                    end
-                end
-            end
-        end
-
         @today = Time.at(@time).strftime("%l:%M %p, %a, %b %d, %Y")
         @tomorrow_1 = Time.at(@time_1).strftime("%b %d")
         @tomorrow_2 = Time.at(@time_2).strftime("%b %d")
         @tomorrow_3 = Time.at(@time_3).strftime("%b %d")
-        @tomorrow_4 = Time.at(@time_4).strftime("%b %d")
       end
 
 	end

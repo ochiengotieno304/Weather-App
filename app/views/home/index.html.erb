@@ -1,8 +1,8 @@
-<br><br>
 <div class="card" style="
   width: 30%;
   height: 100%;
-  border: solid #000 1px;
+  border: solid #000 0px;
+  background: rgba(189, 195, 199, .3);
   border-radius: 25px;
   padding: 20px;
   text-align:center;
@@ -29,11 +29,70 @@
   </div>
 </div>
 
-<div style="display: inline-block;
-  margin-left: 5%;
-  float: right;">
+<div style="display: inline-block; float: right;">
+  <br>
   <canvas id="myChart" style="width: 200%;max-width:600px"></canvas>
 </div>
+
+
+<!-- Daily Forecast Begins Here -->
+<div style="margin-top: 20px; float: right; width: 50%;">
+  <div class="card" style="
+    width: 25%;
+    border: solid #000 0px;
+    border-radius: 15px;
+    padding: 10px;
+    text-align:center;
+    background: rgba(0,139,139,.3);
+    margin-right: 8%;
+    display: inline-block;">
+    <div class="card-body">
+      <h5 class="card-title" style="margin-bottom:10px;">Today</h5>
+      <div style="text-align: center;">
+        <%= image_tag "http://openweathermap.org/img/wn/#{@icon_1}.png" %>
+        <h5 class="card-title">Humidity</h5>
+        <p class="card-text"><%=@humidity_1.html_safe%></p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card" style="
+    width: 25%;
+    border: solid #000 0px;
+    border-radius: 15px;
+    padding: 10px;
+    background: rgba(0,139,139,.3);
+    text-align:center;
+    margin-right: 8%;
+    display: inline-block;">
+    <div class="card-body">
+      <h5 class="card-title" style="margin-bottom:10px;"><%=@tomorrow_2.html_safe%></h5>
+      <div style="text-align: center;">
+        <%= image_tag "http://openweathermap.org/img/wn/#{@icon_2}.png" %>
+        <h5 class="card-title">Humidity</h5>
+        <p class="card-text"><%=@humidity_2%></p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card" style="
+    width: 25%;
+    border: solid #000 0px;
+    border-radius: 15px;
+    padding: 10px;
+    background: rgba(0,139,139,.3);
+    text-align:center;
+    display: inline-block;">
+    <div class="card-body">
+      <h5 class="card-title" style="margin-bottom:10px;"><%=@tomorrow_3.html_safe%></h5>
+      <div style="text-align: center;">
+        <%= image_tag "http://openweathermap.org/img/wn/#{@icon_3}.png" %>
+        <h5 class="card-title">Humidity</h5>
+        <p class="card-text"><%=@humidity_3%></p>
+    </div>
+  </div>
+</div>
+
 <script>
 var xValues =  <%= @hourly_time.html_safe %>;
 var yValues =  <%= @hourly_temp.html_safe %>;
@@ -59,17 +118,3 @@ new Chart("myChart", {
   }
 });
 </script>
-
-
-
-
-
-
-
-
-
-<% @today %><br>
-<% @tomorrow_1 %><br>
-<% @tomorrow_2 %><br>
-<% @tomorrow_3 %><br>
-<% @tomorrow_4 %>
