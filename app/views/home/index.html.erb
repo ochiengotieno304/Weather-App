@@ -1,15 +1,75 @@
-<div class="p-5 mb-4 bg-light rounded-3">
-  <div class="container-fluid py-5">
-    <h1 class="display-5 fw-bold"><%= @name %></h1>
-    <p class="col-md-8 fs-4">
+<br><br>
+<div class="card" style="
+  width: 30%;
+  height: 100%;
+  border: solid #000 1px;
+  border-radius: 25px;
+  padding: 20px;
+  text-align:center;
+  display: inline-block;">
 
-      <%= @content %> 
-      <img src="http://openweathermap.org/img/wn/<%= @icon_id %>.png" alt="state_icon"> <br>
-      <%= @temperature %> <br>
-      <%= @humidity %> % <br>
-      <%= @wind_speed %> m/s <br>
+  <div class="card-body">
+    <h5 class="card-title" style="margin-bottom:20px;"><%=@today%></h5><br>
 
-    </p>
-    <button onclick="location.reload()" class="btn btn-primary btn-lg" type="button" >Refresh</button>
+    <p class="card-text" style="font-size: 100px;
+      margin-bottom: 20%; margin-top: 12%; font-weight: bold;"><%=@temperature%></p>
+
+    <p class="card-text" style="text-transform: capitalize;
+      font-weight: bold; font-size: 20px;"><%=@description%><p>
+
+    <div style="display: inline-block; margin: 8% 8% 0px 0px; text-align: center;">
+      <h5 class="card-title">Humidity</h5>
+      <p class="card-text"><%=@humidity%></p>
+    </div>
+
+    <div style="display: inline-block; margin: 8% 0px 0px 8%; text-align: center;">
+      <h5 class="card-title">Wind Speed</h5>
+      <p class="card-text"><%=@wind_speed%></p>
+    </div>
   </div>
 </div>
+
+<div style="display: inline-block;
+  margin-left: 5%;
+  float: right;">
+  <canvas id="myChart" style="width: 200%;max-width:600px"></canvas>
+</div>
+<script>
+var xValues =  <%= @hourly_time.html_safe %>;
+var yValues =  <%= @hourly_temp.html_safe %>;
+
+new Chart("myChart", {
+  type: "line",
+  data: {
+    labels: xValues,
+    datasets: [{
+      fill: true,
+      lineTension: 0,
+      backgroundColor: "rgba(0,139,139,.5)",
+      borderColor: "rgba(0, 139, 139, .5)",
+      data: yValues
+    }]
+  },
+  options: {
+    legend: {display: false},
+    scales: {
+      yAxes: [{ticks: {min: 6, max:40}}],
+      xAxes: [{ticks: {display: true}}]
+    }
+  }
+});
+</script>
+
+
+
+
+
+
+
+
+
+<% @today %><br>
+<% @tomorrow_1 %><br>
+<% @tomorrow_2 %><br>
+<% @tomorrow_3 %><br>
+<% @tomorrow_4 %>
