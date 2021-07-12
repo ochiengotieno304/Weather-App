@@ -4,31 +4,40 @@ class HomeController < ApplicationController
 	  	require 'json'
       require 'time'
 
+
       @data = params[:search_box]
 
       if @data
         # Accuweather locations api endpoint
         @accu_url = 'http://dataservice.accuweather.com/locations/v1/cities/search?q='+ @data +'&apikey=oKWgqkWj5XA0dvx22bTA1y6l4inM5la3'
-        @accu_uri = URI(@accu_url)                 # convert @accu_url variable to a URI
-        @accu_response = Net::HTTP.get(@accu_uri)  # pass the uri to the response
-        @accu_output = JSON.parse(@accu_response)  # parse the JSON
+        @accu_uri = URI(@accu_url)
+      begin
+        @accu_response = Net::HTTP.get(@accu_uri)
+      rescue SystemCallError, SocketError, NoMethodError => e
+        @error = true
+      else
+        begin
+          @accu_output = JSON.parse(@accu_response)
+          lat = @accu_output[0]['GeoPosition']['Latitude'].to_s
+          lon = @accu_output[0]['GeoPosition']['Longitude'].to_s
+        rescue NoMethodError => e
+          @error = true
+        else
+          # OpenWeatherMap locations api endpoint
+          @open_url = 'https://api.openweathermap.org/data/2.5/onecall?lat='+ lat +'&lon='+ lon +'&units=metric&exclude=minutely&appid=1cc879771ffb654e030d0801eb0df537'
+        end
+      end
 
-        # Extracting accuweather latitude and longitude values
-        lat = @accu_output[0]['GeoPosition']['Latitude'].to_s
-        lon = @accu_output[0]['GeoPosition']['Longitude'].to_s
-
-        # lat = '-1.27'
-        # lon = '36.804'
-        # Openweather forecast api endpoint
-        # https://api.openweathermap.org/data/2.5/onecall?lat=-1.27&lon=36.804&units=metric&exclude=minutely&appid=1cc879771ffb654e030d0801eb0df537
-        @open_url = 'https://api.openweathermap.org/data/2.5/onecall?lat='+ lat +'&lon='+ lon +'&units=metric&exclude=minutely&appid=1cc879771ffb654e030d0801eb0df537'
-        @open_uri = URI(@open_url)                # convert @open_url variable to a URI
-        @open_response = Net::HTTP.get(@open_uri) # pass the uri to the response
-        @open_output = JSON.parse(@open_response) # parse the JSON
+      begin
+        @open_uri = URI(@open_url)
+        @open_response = Net::HTTP.get(@open_uri)
+      rescue SystemCallError, SocketError, ArgumentError => e
+        @error = true
+      else
+        @open_output = JSON.parse(@open_response)
 
         # Extract current weather from openweather
         @open_output['current'].each do |key, value|
-            #puts "#{key} #{value}"
             case key
             when 'dt'
                 @time = value.to_i
@@ -144,7 +153,7 @@ class HomeController < ApplicationController
             end
         end
 
-        # tomorrow day forecast
+        # tomorrow forecast
         @daily_weather[1].each do |key, value|
             case key
             when 'dt'
@@ -182,11 +191,31 @@ class HomeController < ApplicationController
             end
         end
 
+        # third day forecast
+        @daily_weather[3].each do |key, value|
+            case key
+            when 'dt'
+                @time_4 = value.to_i
+            when 'humidity'
+                @humidity_4 = value.to_s + '%'
+            when 'weather'
+                value[0].each do |attribute, content|
+                    case attribute
+                        when 'description'
+                            @description_4= content
+                        when 'icon'
+                            @icon_4 = content
+                    end
+                end
+            end
+        end
+
         @today = Time.at(@time).strftime("%l:%M %p, %a, %b %d, %Y")
         @tomorrow_1 = Time.at(@time_1).strftime("%b %d")
         @tomorrow_2 = Time.at(@time_2).strftime("%b %d")
         @tomorrow_3 = Time.at(@time_3).strftime("%b %d")
+        @tomorrow_4 = Time.at(@time_4).strftime("%b %d")
       end
-
+    end
 	end
 end

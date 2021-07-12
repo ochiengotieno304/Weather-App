@@ -1,101 +1,127 @@
+<%begin%>
 <div class="card" style="
   width: 30%;
   height: 100%;
   border: solid #000 0px;
-  background: rgba(189, 195, 199, .3);
+  background: rgba(193, 193, 193, .3);
   border-radius: 25px;
   padding: 20px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   text-align:center;
   display: inline-block;">
 
   <div class="card-body">
-    <h5 class="card-title" style="margin-bottom:20px;"><%=@today%></h5><br>
+    <h5 class="card-title" style="margin-bottom:0px;"><%=@today%></h5><br>
 
     <p class="card-text" style="font-size: 100px;
       margin-bottom: 20%; margin-top: 12%; font-weight: bold;"><%=@temperature%></p>
+
+    <%= image_tag "https://openweathermap.org/img/wn/#{@icon}@2x.png" %>
 
     <p class="card-text" style="text-transform: capitalize;
       font-weight: bold; font-size: 20px;"><%=@description%><p>
 
     <div style="display: inline-block; margin: 8% 8% 0px 0px; text-align: center;">
-      <h5 class="card-title">Humidity</h5>
-      <p class="card-text"><%=@humidity%></p>
+      <h4 class="card-title">Humidity</h4>
+      <p class="card-text" style="font-size: 20px;"><%=@humidity%></p>
     </div>
 
     <div style="display: inline-block; margin: 8% 0px 0px 8%; text-align: center;">
-      <h5 class="card-title">Wind Speed</h5>
-      <p class="card-text"><%=@wind_speed%></p>
+      <h4 class="card-title">Wind Speed</h4>
+      <p class="card-text" style="font-size: 20px;"><%=@wind_speed%></p>
     </div>
   </div>
 </div>
 
-<div style="display: inline-block; float: right;">
-  <br>
+<div style="display: inline-block; float: right; margin-top: 5%;">
   <canvas id="myChart" style="width: 200%;max-width:600px"></canvas>
 </div>
 
 
 <!-- Daily Forecast Begins Here -->
-<div style="margin-top: 20px; float: right; width: 50%;">
+<div style="margin-top: 5px; float: right; width: 70%;">
   <div class="card" style="
-    width: 25%;
+    width: 20%;
     border: solid #000 0px;
-    border-radius: 15px;
-    padding: 10px;
+    border-radius: 13px;
     text-align:center;
-    background: rgba(0,139,139,.3);
-    margin-right: 8%;
+    float: right;
+    background: rgba(f,f,f,.3);
+    margin-right: 0%;
     display: inline-block;">
     <div class="card-body">
-      <h5 class="card-title" style="margin-bottom:10px;">Today</h5>
+      <h6 class="card-title" style="margin-bottom:4px; font-weight: bold;"><%=@tomorrow_4.html_safe%></h6>
       <div style="text-align: center;">
-        <%= image_tag "http://openweathermap.org/img/wn/#{@icon_1}.png" %>
-        <h5 class="card-title">Humidity</h5>
-        <p class="card-text"><%=@humidity_1.html_safe%></p>
+        <%= image_tag "http://openweathermap.org/img/wn/#{@icon_4}.png" %>
+        <h6 class="card-title">Humidity</h6>
+        <p class="card-text"><%=@humidity_4.html_safe%></p>
       </div>
     </div>
   </div>
 
   <div class="card" style="
-    width: 25%;
+    width: 20%;
     border: solid #000 0px;
-    border-radius: 15px;
-    padding: 10px;
-    background: rgba(0,139,139,.3);
+    border-radius: 10px;
+    background: rgba(f,f,f,.3);
     text-align:center;
-    margin-right: 8%;
+    float: right;
+    margin-right: 0%;
     display: inline-block;">
     <div class="card-body">
-      <h5 class="card-title" style="margin-bottom:10px;"><%=@tomorrow_2.html_safe%></h5>
+      <h6 class="card-title" style="margin-bottom: 4px; font-weight: bold;"><%=@tomorrow_3.html_safe%></h6>
+      <div style="text-align: center;">
+        <%= image_tag "http://openweathermap.org/img/wn/#{@icon_3}.png" %>
+        <h6 class="card-title">Humidity</h6>
+        <p class="card-text"><%=@humidity_3%></p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card" style="
+    width: 20%;
+    border: solid #000 0px;
+    float: right;
+    border-radius: 15px;
+    background: rgba(f,f,f,.3);
+    text-align:center;
+    margin-right: 0%;
+    display: inline-block;">
+    <div class="card-body">
+      <h6 class="card-title" style="margin-bottom: 4px; font-weight: bold;"><%=@tomorrow_2.html_safe%></h6>
       <div style="text-align: center;">
         <%= image_tag "http://openweathermap.org/img/wn/#{@icon_2}.png" %>
-        <h5 class="card-title">Humidity</h5>
+        <h6 class="card-title">Humidity</h6>
         <p class="card-text"><%=@humidity_2%></p>
       </div>
     </div>
   </div>
 
   <div class="card" style="
-    width: 25%;
+    width: 20%;
     border: solid #000 0px;
-    border-radius: 15px;
-    padding: 10px;
-    background: rgba(0,139,139,.3);
+    border-radius: 10px;
+    float: right;
     text-align:center;
+    background: rgba(189, 195, 199, .3);
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    margin-right: 0%;
     display: inline-block;">
     <div class="card-body">
-      <h5 class="card-title" style="margin-bottom:10px;"><%=@tomorrow_3.html_safe%></h5>
+      <h6 class="card-title" style="margin-bottom:4px; font-weight: bold;">Today</h6>
       <div style="text-align: center;">
-        <%= image_tag "http://openweathermap.org/img/wn/#{@icon_3}.png" %>
-        <h5 class="card-title">Humidity</h5>
-        <p class="card-text"><%=@humidity_3%></p>
+        <%= image_tag "http://openweathermap.org/img/wn/#{@icon_1}.png" %>
+        <h6 class="card-title">Humidity</h6>
+        <p class="card-text"><%=@humidity_1.html_safe%></p>
+      </div>
     </div>
   </div>
 </div>
 
+
 <script>
 var xValues =  <%= @hourly_time.html_safe %>;
-var yValues =  <%= @hourly_temp.html_safe %>;
+var yValues =  <%= @hourly_temp.html_safe%>;
 
 new Chart("myChart", {
   type: "line",
@@ -104,17 +130,35 @@ new Chart("myChart", {
     datasets: [{
       fill: true,
       lineTension: 0,
-      backgroundColor: "rgba(0,139,139,.5)",
-      borderColor: "rgba(0, 139, 139, .5)",
+      backgroundColor: "rgba(102,205,170, .3)",
+      borderColor: "rgba(102,205,170, 1)",
       data: yValues
     }]
   },
   options: {
+    title: {
+      display: true,
+      text: "Hourly Temperature"
+    },
+    elements: {
+      point: {radius: 0},
+      line: {tension: 0}
+    },
     legend: {display: false},
     scales: {
-      yAxes: [{ticks: {min: 6, max:40}}],
-      xAxes: [{ticks: {display: true}}]
+      yAxes: [{
+        ticks: {min: 6, max:60},
+         gridLines: {color: "rgba(0, 0, 0, 0)",}
+              }],
+      xAxes: [{
+        ticks: {display: true},
+        gridLines: {color: "rgba(0, 0, 0, 0)",}
+              }]
     }
   }
 });
 </script>
+
+<%rescue SystemCallError, NoMethodError => e %>
+  <%= @error_output_two %>
+<%end%>

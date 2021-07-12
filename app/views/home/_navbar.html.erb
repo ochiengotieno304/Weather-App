@@ -2,7 +2,9 @@
   <div class="container-fluid">
     <%= link_to 'My Weather', root_path, class: "navbar-brand"%>
     <form class="d-flex">
-      <input class="form-control me-2" type="search" placeholder="Your City" aria-label="Search" name="search_box" value="<%=@data%>">
+      <input class="form-control me-2"
+        style="text-transform: capitalize;"
+        type="search" placeholder="Your City" aria-label="Search" name="search_box" value="<%=@data%>">
       <button class="btn btn-outline-success" type="submit">Search</button>
     </form>
   </div>
