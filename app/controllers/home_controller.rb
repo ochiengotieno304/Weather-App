@@ -9,7 +9,7 @@ class HomeController < ApplicationController
 
       if @data
         # Accuweather locations api endpoint
-        @accu_url = 'http://dataservice.accuweather.com/locations/v1/cities/search?q='+ @data +'&apikey=oKWgqkWj5XA0dvx22bTA1y6l4inM5la3'
+        @accu_url = 'http://dataservice.accuweather.com/locations/v1/cities/search?q='+ @data +'&apikey=eCIidz2ACIhN4FxgoAZRqC454uhXeQkU'
         @accu_uri = URI(@accu_url)
       begin
         @accu_response = Net::HTTP.get(@accu_uri)
@@ -20,7 +20,7 @@ class HomeController < ApplicationController
           @accu_output = JSON.parse(@accu_response)
           lat = @accu_output[0]['GeoPosition']['Latitude'].to_s
           lon = @accu_output[0]['GeoPosition']['Longitude'].to_s
-        rescue NoMethodError => e
+        rescue NoMethodError, JSON::ParserError => e
           @error = true
         else
           # OpenWeatherMap locations api endpoint
