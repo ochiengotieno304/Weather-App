@@ -11,7 +11,13 @@
   display: inline-block;">
 
   <div class="card-body">
-    <h5 class="card-title" style="margin-bottom:0px;"><%=@today%></h5><br>
+    <h5 class="card-title" style="margin-bottom:0px;"><%=@today%>
+      <span class="position-absolute top-0 start-80 translate-middle badge rounded-pill bg-secondary"
+      style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
+    <%= @country %>
+    <span class="visually-hidden">conntry abbreviation</span>
+  </span>
+</h5><br>
 
     <p class="card-text" style="font-size: 100px;
       margin-bottom: 20%; margin-top: 12%; font-weight: bold;"><%=@temperature%></p>

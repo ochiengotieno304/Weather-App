@@ -20,6 +20,7 @@ class HomeController < ApplicationController
           @location_output = JSON.parse(@location_response)
           lat = @location_output[0]['lat'].to_s
           lon = @location_output[0]['lon'].to_s
+          @country = @location_output[0]['country'].to_s
         rescue NoMethodError, JSON::ParserError => e
           @error = true
         else
