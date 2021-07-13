@@ -1,26 +1,9 @@
-<!DOCTYPE html>
-<html lang="en" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-    <title></title>
-    <style>
-      .content {
-        display: flex;
-        flex-direction: column;
-        margin-top: 50px;
-        align-items: center;
-        min-height: 100vh;
-      }
-    </style>
-  </head>
-  <body>
-    <div class="content">
-    <h1 style="color: red;">Error!</h1>
-    <p>Possible causes:</p>
-    <ul>
-      <li>Invalid city name</li>
-      <li>No internet connection</li>
-    </ul>
-    </div>
-  </body>
-</html>
+<div style="margin-left: 45%; margin-top: 10%;">
+  <h1 style="color: red;">Error!</h1>
+  <%= image_tag ("/assets/frown.png"), style: 'width:100px; height:100px' %>
+  <p>Possible causes:</p>
+  <ul>
+    <li>Invalid city name</li>
+    <li>No internet connection</li>
+  </ul>
+</div>

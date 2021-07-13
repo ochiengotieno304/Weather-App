@@ -8,18 +8,18 @@ class HomeController < ApplicationController
       @data = params[:search_box]
 
       if @data
-        # Accuweather locations api endpoint
-        @accu_url = 'http://dataservice.accuweather.com/locations/v1/cities/search?q='+ @data +'&apikey=eCIidz2ACIhN4FxgoAZRqC454uhXeQkU'
-        @accu_uri = URI(@accu_url)
+        # openweathermap locations api endpoint
+        @location_url = 'https://api.openweathermap.org/geo/1.0/direct?q='+ @data +'&appid=5032e7ee39cb2a1bb07ad08ab1af59bf'
+        @location_uri = URI(@location_url)
       begin
-        @accu_response = Net::HTTP.get(@accu_uri)
+        @location_response = Net::HTTP.get(@location_uri)
       rescue SystemCallError, SocketError, NoMethodError => e
         @error = true
       else
         begin
-          @accu_output = JSON.parse(@accu_response)
-          lat = @accu_output[0]['GeoPosition']['Latitude'].to_s
-          lon = @accu_output[0]['GeoPosition']['Longitude'].to_s
+          @location_output = JSON.parse(@location_response)
+          lat = @location_output[0]['lat'].to_s
+          lon = @location_output[0]['lon'].to_s
         rescue NoMethodError, JSON::ParserError => e
           @error = true
         else
