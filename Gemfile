@@ -4,6 +4,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby '2.7.2'
 
 gem 'rails', '~> 6.1.3', '>= 6.1.3.1'
+gem 'sqlite3', '~> 1.4',group: :development
 gem 'puma', '~> 5.0'
 gem 'sass-rails', '>= 6'
 gem 'webpacker', '~> 5.0'
@@ -15,12 +16,12 @@ gem 'bootstrap', '~> 5.0.0.beta2'
 gem 'json', '~> 2.5', '>= 2.5.1'
 gem 'chartkick', '~> 4.0', '>= 4.0.5'
 gem 'rest-client', '~> 2.1'
+gem 'pg'
 
 
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
 end
-
 
 group :development do
   gem 'web-console', '>= 4.1.0'
