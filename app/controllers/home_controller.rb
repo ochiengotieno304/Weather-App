@@ -1,6 +1,5 @@
 class HomeController < ApplicationController
   def index
-    require_relative '../.geo_api_key.rb'
 	require 'net/http'
 	require 'json'
     require 'time'
@@ -10,7 +9,7 @@ class HomeController < ApplicationController
 
       if @data
         # openweathermap locations api endpoint
-        @location_url = "https://api.openweathermap.org/geo/1.0/direct?q="+ @data +'&appid=' + "#{$geo_api_key}"
+        @location_url = "https://api.openweathermap.org/geo/1.0/direct?q="+ @data +'&appid=' + Rails.application.credentials.openweather[:api_key]
         @location_uri = URI(@location_url)
       begin
         @location_response = Net::HTTP.get(@location_uri)
@@ -26,7 +25,7 @@ class HomeController < ApplicationController
           @error = true
         else
           # OpenWeatherMap locations api endpoint
-          @open_url = "https://api.openweathermap.org/data/2.5/onecall?lat="+ lat +'&lon='+ lon +'&units=metric&exclude=minutely&appid=' + "#{$geo_api_key}"
+          @open_url = "https://api.openweathermap.org/data/2.5/onecall?lat="+ lat +'&lon='+ lon +'&units=metric&exclude=minutely&appid=' + Rails.application.credentials.openweather[:api_key]
         end
       end
 

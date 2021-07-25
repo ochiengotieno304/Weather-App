@@ -39,3 +39,4 @@
 yarn-debug.log*
 .yarn-integrity
 .geo_api_key.rb
+/.vscode
