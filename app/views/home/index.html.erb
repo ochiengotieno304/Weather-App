@@ -1,60 +1,44 @@
 <%begin%>
-<div class="card" style="
-  width: 30%;
-  height: 100%;
-  border: solid #000 0px;
-  background: rgba(193, 193, 193, .3);
-  border-radius: 25px;
-  padding: 20px;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-  text-align:center;
-  display: inline-block;">
+<div class="d-flex flex-row bd-highlight mb-2">
+  <div class="card main-card">
+    <div class="card-body">
+      <h5 class="card-title" style="margin-bottom:0px;"><%=@today%>
+        <span class="position-absolute top-0 start-80 translate-middle badge rounded-pill bg-secondary"
+        style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
+          <%= @country %>
+          <span class="visually-hidden">country abbreviation</span>
+        </span>
+      </h5><br>
 
-  <div class="card-body">
-    <h5 class="card-title" style="margin-bottom:0px;"><%=@today%>
-      <span class="position-absolute top-0 start-80 translate-middle badge rounded-pill bg-secondary"
-      style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
-    <%= @country %>
-    <span class="visually-hidden">conntry abbreviation</span>
-  </span>
-</h5><br>
+      <p class="card-text" style="font-size: 100px;
+        margin-bottom: 20%; margin-top: 12%; font-weight: bold;"><%=@temperature%></p>
 
-    <p class="card-text" style="font-size: 100px;
-      margin-bottom: 20%; margin-top: 12%; font-weight: bold;"><%=@temperature%></p>
+      <%= image_tag "https://openweathermap.org/img/wn/#{@icon}@2x.png" %>
 
-    <%= image_tag "https://openweathermap.org/img/wn/#{@icon}@2x.png" %>
+      <p class="card-text" style="text-transform: capitalize;
+        font-weight: bold; font-size: 20px;"><%=@description%><p>
 
-    <p class="card-text" style="text-transform: capitalize;
-      font-weight: bold; font-size: 20px;"><%=@description%><p>
+      <div style="display: inline-block; margin: 8% 8% 0px 0px; text-align: center;">
+        <h4 class="card-title">Humidity</h4>
+        <p class="card-text" style="font-size: 20px;"><%=@humidity%></p>
+      </div>
 
-    <div style="display: inline-block; margin: 8% 8% 0px 0px; text-align: center;">
-      <h4 class="card-title">Humidity</h4>
-      <p class="card-text" style="font-size: 20px;"><%=@humidity%></p>
-    </div>
-
-    <div style="display: inline-block; margin: 8% 0px 0px 8%; text-align: center;">
-      <h4 class="card-title">Wind Speed</h4>
-      <p class="card-text" style="font-size: 20px;"><%=@wind_speed%></p>
+      <div style="display: inline-block; margin: 8% 0px 0px 8%; text-align: center;">
+        <h4 class="card-title">Wind Speed</h4>
+        <p class="card-text" style="font-size: 20px;"><%=@wind_speed%></p>
+      </div>
     </div>
   </div>
-</div>
 
-<div style="display: inline-block; float: right; margin-top: 5%;">
-  <canvas id="myChart" style="width: 200%;max-width:600px"></canvas>
+  <div style="display: inline-block; float: right; margin-top: 5%;">
+    <canvas id="myChart" style="width: 200%;max-width:600px"></canvas>
+  </div>
 </div>
 
 
 <!-- Daily Forecast Begins Here -->
 <div style="margin-top: 5px; float: right; width: 70%;">
-  <div class="card" style="
-    width: 20%;
-    border: solid #000 0px;
-    border-radius: 13px;
-    text-align:center;
-    float: right;
-    background: rgba(f,f,f,.3);
-    margin-right: 0%;
-    display: inline-block;">
+  <div class="card daily">
     <div class="card-body">
       <h6 class="card-title" style="margin-bottom:4px; font-weight: bold;"><%=@tomorrow_4.html_safe%></h6>
       <div style="text-align: center;">
@@ -65,54 +49,31 @@
     </div>
   </div>
 
-  <div class="card" style="
-    width: 20%;
-    border: solid #000 0px;
-    border-radius: 10px;
-    background: rgba(f,f,f,.3);
-    text-align:center;
-    float: right;
-    margin-right: 0%;
-    display: inline-block;">
+  <div class="card daily">
     <div class="card-body">
       <h6 class="card-title" style="margin-bottom: 4px; font-weight: bold;"><%=@tomorrow_3.html_safe%></h6>
       <div style="text-align: center;">
         <%= image_tag "http://openweathermap.org/img/wn/#{@icon_3}.png" %>
         <h6 class="card-title">Humidity</h6>
-        <p class="card-text"><%=@humidity_3%></p>
+        <p class="card-text"><%=@humidity_3.html_safe%></p>
       </div>
     </div>
   </div>
 
-  <div class="card" style="
-    width: 20%;
-    border: solid #000 0px;
-    float: right;
-    border-radius: 15px;
-    background: rgba(f,f,f,.3);
-    text-align:center;
-    margin-right: 0%;
-    display: inline-block;">
+  <div class="card daily">
     <div class="card-body">
       <h6 class="card-title" style="margin-bottom: 4px; font-weight: bold;"><%=@tomorrow_2.html_safe%></h6>
       <div style="text-align: center;">
         <%= image_tag "http://openweathermap.org/img/wn/#{@icon_2}.png" %>
         <h6 class="card-title">Humidity</h6>
-        <p class="card-text"><%=@humidity_2%></p>
+        <p class="card-text"><%=@humidity_2.html_safe%></p>
       </div>
     </div>
   </div>
 
-  <div class="card" style="
-    width: 20%;
-    border: solid #000 0px;
-    border-radius: 10px;
-    float: right;
-    text-align:center;
+  <div class="card daily" style="
     background: rgba(189, 195, 199, .3);
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    margin-right: 0%;
-    display: inline-block;">
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
     <div class="card-body">
       <h6 class="card-title" style="margin-bottom:4px; font-weight: bold;">Today</h6>
       <div style="text-align: center;">
